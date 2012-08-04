@@ -19,6 +19,7 @@ library
     hs-source-dirs: src
 
     exposed-modules:
+        Math.Arithmetic.Digits,
         Math.Arithmetic.Divisibility
 
     build-depends:

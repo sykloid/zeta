@@ -13,9 +13,13 @@ module Math.Arithmetic.Divisibility (
 (//) :: Integer -> Integer -> Integer
 (//) = div
 
+infixl 7 //
+
 -- | An operator alias for 'mod', for convenience.
 (%%) :: Integer -> Integer -> Integer
 (%%) = mod
+
+infixl 7 %%
 
 -- | A divisibility check; succeeds if the first integer precisely divides the second.
 (%?) :: Integer -> Integer -> Bool

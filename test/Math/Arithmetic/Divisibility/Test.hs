@@ -28,6 +28,11 @@ prop_xgcd_invariant a b = a > 0 && b > 0 ==> a*x + y*b == g where (x, y, g) = xg
 prop_modexp_invariant :: Integer -> Integer -> Integer -> Property
 prop_modexp_invariant x n m = x > 0 && n > 0 && m > 0 ==> (x %^ n $ m) == x ^ n %% m
 
+prop_modinv_invariant :: Integer -> Integer -> Property
+prop_modinv_invariant a m = a > 0 && m > 1 ==>
+    if gcd a m == 1 then maybe False (\i -> a * i %% m == 1) (a %~ m)
+    else a %~ m == Nothing
+
 tests :: [Test]
 tests = [
         testGroup "Divisibility Check" [
@@ -44,5 +49,8 @@ tests = [
             ],
         testGroup "Modular Exponentiation" [
                 testProperty "Invariant" prop_modexp_invariant
+            ],
+        testGroup "Modular Inversion" [
+                testProperty "Invariant" prop_modinv_invariant
             ]
     ]

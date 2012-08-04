@@ -8,7 +8,8 @@ module Math.Arithmetic.Divisibility (
 
     xgcd,
 
-    (%^)
+    (%^),
+    (%~)
 ) where
 
 -- | An operator alias for 'div', for convenience.
@@ -57,3 +58,12 @@ xgcd a b = (y, x - y * q, g)
     half = x %^ n // 2 $ m
 
 infixl 5 %^
+
+-- | A Modular Inverse operator which computes, for a given pair @(a, m)@, the (possibly
+-- non-existent) value @x@ such that @a * x %% m == 1@.
+(%~) :: Integer -> Integer -> Maybe Integer
+(%~) a m
+    | g == 1 = Just x
+    | otherwise = Nothing
+  where
+    (x, _, g) = xgcd a m

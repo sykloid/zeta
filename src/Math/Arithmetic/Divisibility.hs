@@ -4,7 +4,9 @@ module Math.Arithmetic.Divisibility (
     (%%),
 
     (%?),
-    (%!)
+    (%!),
+
+    xgcd
 ) where
 
 -- | An operator alias for 'div', for convenience.
@@ -28,3 +30,12 @@ module Math.Arithmetic.Divisibility (
     | otherwise = (0, b)
   where
     (s, t) = a %! (b // a)
+
+-- | The Extended Euclidean GCD, which determines the minimal triple @(x, y, g)@ for a given pair of
+-- integers @(a, b)@ such that @a*x + b*y == g@.
+xgcd :: Integer -> Integer -> (Integer, Integer, Integer)
+xgcd a 0 = (1, 0, a)
+xgcd a b = (y, x - y * q, g)
+  where
+    (q, r) = a `divMod` b
+    (x, y, g) = xgcd b r

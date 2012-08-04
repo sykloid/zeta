@@ -22,6 +22,9 @@ prop_deep_identity x = x > 0 ==> x %! x == (1, 1)
 prop_deep_invariant :: Integer -> Integer -> Property
 prop_deep_invariant x y = x > 0 && y >= 0 ==> x^s * t == y where (s, t) = x %! y
 
+prop_xgcd_invariant :: Integer -> Integer -> Property
+prop_xgcd_invariant a b = a > 0 && b > 0 ==> a*x + y*b == g where (x, y, g) = xgcd a b
+
 tests :: [Test]
 tests = [
         testGroup "Divisibility Check" [
@@ -32,5 +35,8 @@ tests = [
         testGroup "Deep Divisibility" [
                 testProperty "Identity" prop_deep_identity,
                 testProperty "Invariant" prop_deep_invariant
+            ],
+        testGroup "Extended GCD" [
+                testProperty "Invariant" prop_xgcd_invariant
             ]
     ]

@@ -16,3 +16,28 @@ cabal-version:  >=1.12
 
 library
     default-language: Haskell2010
+    hs-source-dirs: src
+
+    exposed-modules:
+        Math.Arithmetic.Divisibility
+
+    build-depends:
+        base
+
+test-suite all
+    default-language: Haskell2010
+    hs-source-dirs: src, test
+    type: exitcode-stdio-1.0
+    main-is: Test.hs
+
+    build-depends:
+        base,
+
+        HUnit,
+        QuickCheck,
+
+        test-framework,
+        test-framework-hunit,
+        test-framework-quickcheck2,
+
+        zeta

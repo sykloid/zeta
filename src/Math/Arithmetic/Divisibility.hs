@@ -6,7 +6,9 @@ module Math.Arithmetic.Divisibility (
     (%?),
     (%!),
 
-    xgcd
+    xgcd,
+
+    (%^)
 ) where
 
 -- | An operator alias for 'div', for convenience.
@@ -43,3 +45,15 @@ xgcd a b = (y, x - y * q, g)
   where
     (q, r) = a `divMod` b
     (x, y, g) = xgcd b r
+
+-- | A Modular Exponentiation operator, which efficiently computes @a %^ b $ m == a ^ b `mod` m@.
+(%^) :: Integer -> Integer -> Integer -> Integer
+(_ %^ 0) _ = 1
+(x %^ 1) m = x %% m
+(x %^ n) m
+    | even n = half * half %% m
+    | otherwise = x * half * half %% m
+  where
+    half = x %^ n // 2 $ m
+
+infixl 5 %^

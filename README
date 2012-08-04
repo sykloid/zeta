@@ -1,3 +1,16 @@
 ====================================
  Zeta: A Simple Mathematics Library
 ====================================
+
+Installation
+============
+
+To install, simply use `cabal configure`, `cabal build`, and `cabal install`.
+
+To run the test-suite, run `cabal configure --enable-tests`, build, then use `cabal test`.
+
+Components
+==========
+
+    - Digits: Manipulate the digital representations of integers.
+    - Divisibility: Handle the relationships of divisibility between integers.

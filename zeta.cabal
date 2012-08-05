@@ -20,10 +20,12 @@ library
 
     exposed-modules:
         Math.Arithmetic.Digits,
-        Math.Arithmetic.Divisibility
+        Math.Arithmetic.Divisibility,
+        Math.Arithmetic.Primality
 
     build-depends:
-        base
+        base,
+        primes
 
 test-suite all
     default-language: Haskell2010

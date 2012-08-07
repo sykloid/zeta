@@ -43,4 +43,6 @@ test-suite all
         test-framework-hunit,
         test-framework-quickcheck2,
 
+        primes,
+
         zeta

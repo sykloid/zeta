@@ -1,6 +1,9 @@
 module Math.Arithmetic.Primality (
     primes,
-    isPrime
+    isPrime,
+
+    factors,
+    factorization
 ) where
 
 import qualified Data.Numbers.Primes as P
@@ -19,3 +22,21 @@ isPrime n
     | otherwise = not . any (%? n) $ takeWhile (<=root) primes
   where
     root = ceiling . sqrt $ (fromIntegral n :: Double)
+
+-- | Determine the prime factorization of an integer.
+factorization :: Integer -> [(Integer, Integer)]
+factorization 1 = [(1, 1)]
+factorization n = go n primes
+  where
+    go 1 _  = []
+    go _ [] = []
+    go x (p:ps)
+        | p * p > x = [(x, 1)]
+        | p %? x    = (p, s) : go t ps
+        | otherwise = go x ps
+      where
+        (s, t) = p %! x
+
+-- | Determine the unique prime factors of an integer.
+factors :: Integer -> [Integer]
+factors = map fst . factorization

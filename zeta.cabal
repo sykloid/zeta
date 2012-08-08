@@ -22,6 +22,7 @@ library
         Math.Arithmetic.Digits,
         Math.Arithmetic.Divisibility,
         Math.Arithmetic.Primality
+        Math.Arithmetic.Sequences
 
     build-depends:
         base,

@@ -7,7 +7,8 @@ module Math.Arithmetic.Primality (
     divisors,
 
     phi,
-    sigma
+    sigma,
+    tau
 ) where
 
 import qualified Data.Numbers.Primes as P
@@ -58,6 +59,11 @@ divisors n = map (product . zipWith (^) ps) ess
 phi :: Integer -> Integer
 phi n = product [(p - 1) * p ^ (e - 1) | (p, e) <- factorization n]
 
--- | Compute the sum of the given powers of the divisors of the given number.
+-- | Compute the sum of the given powers of the divisors of the given integer.
 sigma :: Integer -> Integer -> Integer
 sigma k n = product [sum [p ^ (i * k) | i <- [0 .. e]] | (p, e) <- factorization n]
+
+-- | Compute the number of the divisors of the given integer. A special case of 'sigma', with the
+-- power set to @0@.
+tau :: Integer -> Integer
+tau = product . map succ . snd . unzip . factorization

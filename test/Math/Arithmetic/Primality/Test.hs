@@ -33,6 +33,9 @@ prop_phi_invariant n = n > 1 ==> (fromIntegral . length $ filter (\x -> gcd x n 
 prop_sigma_invariant :: Integer -> Integer -> Property
 prop_sigma_invariant k n = k >= 0 && n > 1 ==> sum [d ^ k | d <- divisors n] == sigma k n
 
+prop_tau_invariant :: Integer -> Property
+prop_tau_invariant n = n > 1 ==> (fromIntegral . length $ divisors n) == tau n
+
 tests :: [Test]
 tests = [
         testGroup "Primes" [
@@ -48,6 +51,7 @@ tests = [
             ],
         testGroup "Multiplicative Functions" [
                 testProperty "Phi Invariant" prop_phi_invariant,
-                testProperty "Sigma Invariant" prop_sigma_invariant
+                testProperty "Sigma Invariant" prop_sigma_invariant,
+                testProperty "Tau Invariant" prop_tau_invariant
             ]
     ]

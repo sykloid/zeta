@@ -4,8 +4,9 @@ module Math.Arithmetic.Primality (
 
     factors,
     factorization,
+    divisors,
 
-    divisors
+    phi
 ) where
 
 import qualified Data.Numbers.Primes as P
@@ -50,3 +51,8 @@ divisors n = map (product . zipWith (^) ps) ess
   where
     (ps, es) = unzip $ factorization n
     ess = sequence $ map (enumFromTo 0) es
+
+-- | Compute the Euler Totient function for (the number of integers less than and coprime to) a
+-- given integer.
+phi :: Integer -> Integer
+phi n = product [(p - 1) * p ^ (e - 1) | (p, e) <- factorization n]

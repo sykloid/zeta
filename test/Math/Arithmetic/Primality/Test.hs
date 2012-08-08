@@ -27,6 +27,9 @@ prop_factorization_primeFactors n = n > 1 ==> all isPrime (factors n)
 prop_divisors_invariant :: Integer -> Property
 prop_divisors_invariant n = n > 0 ==> (sort $ divisors n) == filter (%? n) [1..n]
 
+prop_phi_invariant :: Integer -> Property
+prop_phi_invariant n = n > 1 ==> (fromIntegral . length $ filter (\x -> gcd x n == 1) [1..n]) == phi n
+
 tests :: [Test]
 tests = [
         testGroup "Primes" [
@@ -37,9 +40,10 @@ tests = [
             ],
         testGroup "Factorization" [
                 testProperty "Factorization Invariant" prop_factorization_invariant,
-                testProperty "Primality of Factors" prop_factorization_primeFactors
-            ],
-        testGroup "Divisors" [
+                testProperty "Primality of Factors" prop_factorization_primeFactors,
                 testProperty "Divisors Invariant" prop_divisors_invariant
+            ],
+        testGroup "Multiplicative Functions" [
+                testProperty "Phi Invariant" prop_phi_invariant
             ]
     ]

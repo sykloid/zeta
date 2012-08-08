@@ -30,6 +30,9 @@ prop_divisors_invariant n = n > 0 ==> (sort $ divisors n) == filter (%? n) [1..n
 prop_phi_invariant :: Integer -> Property
 prop_phi_invariant n = n > 1 ==> (fromIntegral . length $ filter (\x -> gcd x n == 1) [1..n]) == phi n
 
+prop_sigma_invariant :: Integer -> Integer -> Property
+prop_sigma_invariant k n = k >= 0 && n > 1 ==> sum [d ^ k | d <- divisors n] == sigma k n
+
 tests :: [Test]
 tests = [
         testGroup "Primes" [
@@ -44,6 +47,7 @@ tests = [
                 testProperty "Divisors Invariant" prop_divisors_invariant
             ],
         testGroup "Multiplicative Functions" [
-                testProperty "Phi Invariant" prop_phi_invariant
+                testProperty "Phi Invariant" prop_phi_invariant,
+                testProperty "Sigma Invariant" prop_sigma_invariant
             ]
     ]

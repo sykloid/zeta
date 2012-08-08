@@ -6,7 +6,8 @@ module Math.Arithmetic.Primality (
     factorization,
     divisors,
 
-    phi
+    phi,
+    sigma
 ) where
 
 import qualified Data.Numbers.Primes as P
@@ -56,3 +57,7 @@ divisors n = map (product . zipWith (^) ps) ess
 -- given integer.
 phi :: Integer -> Integer
 phi n = product [(p - 1) * p ^ (e - 1) | (p, e) <- factorization n]
+
+-- | Compute the sum of the given powers of the divisors of the given number.
+sigma :: Integer -> Integer -> Integer
+sigma k n = product [sum [p ^ (i * k) | i <- [0 .. e]] | (p, e) <- factorization n]

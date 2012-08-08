@@ -3,7 +3,9 @@ module Math.Arithmetic.Primality (
     isPrime,
 
     factors,
-    factorization
+    factorization,
+
+    divisors
 ) where
 
 import qualified Data.Numbers.Primes as P
@@ -40,3 +42,11 @@ factorization n = go n primes
 -- | Determine the unique prime factors of an integer.
 factors :: Integer -> [Integer]
 factors = map fst . factorization
+
+-- | Enumerate the divisors of an integer.
+divisors :: Integer -> [Integer]
+divisors 1 = [1]
+divisors n = map (product . zipWith (^) ps) ess
+  where
+    (ps, es) = unzip $ factorization n
+    ess = sequence $ map (enumFromTo 0) es

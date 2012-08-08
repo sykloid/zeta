@@ -1,5 +1,7 @@
 module Math.Arithmetic.Primality.Test (tests) where
 
+import Data.List (sort)
+
 import Test.HUnit hiding (Test)
 import Test.QuickCheck
 
@@ -22,6 +24,9 @@ prop_factorization_invariant n = n > 0 ==> product [a ^ b | (a, b) <- factorizat
 prop_factorization_primeFactors :: Integer -> Property
 prop_factorization_primeFactors n = n > 1 ==> all isPrime (factors n)
 
+prop_divisors_invariant :: Integer -> Property
+prop_divisors_invariant n = n > 0 ==> (sort $ divisors n) == filter (%? n) [1..n]
+
 tests :: [Test]
 tests = [
         testGroup "Primes" [
@@ -33,5 +38,8 @@ tests = [
         testGroup "Factorization" [
                 testProperty "Factorization Invariant" prop_factorization_invariant,
                 testProperty "Primality of Factors" prop_factorization_primeFactors
+            ],
+        testGroup "Divisors" [
+                testProperty "Divisors Invariant" prop_divisors_invariant
             ]
     ]
